@@ -1,5 +1,6 @@
 from Authenticate import *
 import os
+import getpass
 
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -17,13 +18,13 @@ dataObj = viewData()
 
 def registerUser():
     username = input("Username: ")
-    password = input("Password: ")
+    password = getpass.getpass("Password: ")
 
     obj.registerUser(username,password)
 
 def loginUser():
     username = input("Username: ")
-    password = input("password: ")
+    password = getpass.getpass("password: ")
 
     x = obj.loginUser(username,password)
     if x is True:
@@ -46,7 +47,7 @@ def user():
             user()
         case 3:
             print("Exit")
-            return
+            exit()
         case _:
             print("Invalid choice")
             user()
@@ -184,36 +185,6 @@ def change_owner():
 
     objUser.changeOwner(regisNo,newOwner,newAdhar)
 
-# def view_vehicle():
-#     print_header("View Vehicle")
-#     print("Viewing vehicle...")
-
-# def view_license():
-#     print_header("View License")
-#     print("Viewing license...")
-
-# def view_challan():
-#     print_header("View Challan")
-#     print("Viewing challan...")
-
-# def login():
-#     clear_screen()
-#     print_header("CLI Login Portal")
-#     username = input("Username: ")
-#     password = getpass.getpass("Password: ")
-    
-#     if username in users and users[username]['password'] == password:
-#         print(f"\nWelcome, {username}!")
-#         input("\nPress Enter to continue...")
-#         role = users[username]['role']
-#         if role == 'admin':
-#             admin_menu()
-#         elif role == 'user':
-#             user_menu()
-#     else:
-#         print("\nInvalid username or password. Please try again.")
-#         input("\nPress Enter to continue...")
-
 def main():
     print("=========| Welcome, TO RTO |==========")
     print("+----+----------------+")
@@ -228,25 +199,13 @@ def main():
             user()
         case 2:
             adminId = input("adminID: ")
-            password = input("Password: ")
+            password = getpass.getpass("Password: ")
 
             x=obj.loginAdmin(adminId,password)
             if x is True:
                 admin_menu()
         case _:
             print("Invalid choice")
-
-    # attempts = 3
-    # while attempts > 0:
-    #     # login()
-    #     attempts -= 1
-    #     if attempts > 0:
-    #         retry = input("\nDo you want to try again? (y/n): ").strip().lower()
-    #         if retry != 'y':
-    #             break
-    #     else:
-    #         print("Too many failed attempts. Exiting.")
-    #         break
 
 if __name__ == "__main__":
     main()

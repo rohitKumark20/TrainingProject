@@ -127,13 +127,16 @@ class viewData:
         except Error as e:
             print(f"No challan Data found!: {e}")
             
-
-#bgrp,add,uid, name,
 class User:
     def apply_for_registration(self, user_id, purchase_date, engine_number, chassis_number, owner_name,adhar):
         try:
             conn = connect_db()
             cur = conn.cursor()
+
+            if len(adhar)!=12:
+                print("Adhar card should be of length 12")
+                return
+
             query = 'insert into vehicle_registrations (user_id,purchase_date,engine_number,chassis_number,owner_name,aadhar_card) values(%s,%s,%s,%s,%s,%s)'
             cur.execute(query,(user_id,purchase_date, engine_number, chassis_number, owner_name,adhar))
             conn.commit()
@@ -147,18 +150,9 @@ class User:
             conn = connect_db()
             cur = conn.cursor()
 
-            # Issue Need to resolved----------
-
-            # cur.execute('select license_number from driving_licenses where user_id=%(user_id)s',{'user_id':uid})
-            # res = cur.fetchone()
-            # for lno in res:
-            #     print(lno)
-            #     if lno is None:
-            #         print("Already Owns a License")
-            #         return
-                # if lno is no:
-                #     print(f"Chalaan with this id {chalaan_id} is Already Paid!")
-                    # return
+            if len(adhar)!=12:
+                print("Adhar number should be of length 12")
+                return
 
             ageObj = ageCalculator()
             res = ageObj.is_greater(dob,18)
@@ -185,6 +179,10 @@ class User:
             cur = conn.cursor()
             objView = viewData()
             objView.viewVehicles(regisNo)
+
+            if len(newadhar)!=12:
+                print("Adhar number should be of length 12")
+                return
 
             query = 'update vehicle_registrations set owner_name = %s,aadhar_card = %s where registration_number = %s'
             cur.execute(query,(newOwner,newadhar,regisNo))
