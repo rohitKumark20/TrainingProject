@@ -112,6 +112,22 @@ class viewData:
         except Error as e:
             print(f"No challan Data found!: {e}")
 
+    def viewLicenses(self,userid):
+        try:
+            conn = connect_db()
+            cur = conn.cursor()
+
+            query = 'select * from driving_licenses where user_id = %(user_id)s'
+            cur.execute(query,{'user_id':userid})
+            res = cur.fetchall()
+
+            for row in res:
+                print(row)
+            
+        except Error as e:
+            print(f"No challan Data found!: {e}")
+            
+
 #bgrp,add,uid, name,
 class User:
     def apply_for_registration(self, user_id, purchase_date, engine_number, chassis_number, owner_name,adhar):
@@ -389,7 +405,8 @@ objAdmin = Admin()
 # objAdmin.viewPendingLicenses()
 # objAdmin.approve_licenses("1001")
 
-
+objView = viewData()
+# objView.viewLicenses("1005")
 # obj=Vehicle()
 # obj.viewPendingRegistration()
 # obj.generate_registration_number("1001")

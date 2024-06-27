@@ -1,75 +1,5 @@
 from Authenticate import *
-# import getpass
-
-# class User:
-#     def register(self):
-#         firstName = input("FirstName: ")
-#         lastName = input("LastName: ")
-#         userId = input("UserID: ")
-#         password = input("Password: ")
-        
-#         obj = Authentication()
-#         obj.registerUser(firstName,lastName,userId,password)
-    
-#     def login(self):
-#         userId = input("userID: ")
-#         password = input("Password: ")
-
-#         obj = Authentication()
-#         obj.loginUser(userId,password)
-
-    
-
-# class Admin:
-#     def loginAdmin(self,adminId,password):
-#         adminId = input("adminID: ")
-#         password = input("Password: ")
-
-#         obj = Authentication()
-#         obj.loginAdmin()
-
-# class viewData:
-#     def viewVehicle():
-
-#         pass
-#     def viewLicense():
-#         pass
-#     def viewChallan():
-#         pass
-
-
-# def main():
-    # print("=========| Welcome, TO RTO |==========")
-    # print("+----+----------------+")
-    # print("| 1. |  User      |")
-    # print("| 2. |  Admin     |")
-    # print("+----+----------------+")
-
-#     user_role=input('Enter Options: ')
-#     match user_role:
-#         case '1':
-#             print('User')
-#             user = User()
-#             user.register()
-            
-#         case '2':
-#             print('Admin')
-#         case _:
-#             print('Invalid choice')
-
-
-# if __name__ == "__main__":
-#     main()
-
-import getpass
 import os
-
-# Sample users and roles data
-users = {
-    'admin': {'password': 'admin', 'role': 'admin'},
-    'bob': {'password': 'qwerty456', 'role': 'user'},
-    'charlie': {'password': 'asdfgh789', 'role': 'user'}
-}
 
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -131,7 +61,7 @@ def admin_menu():
         print("4. Approve Vehicle Registration")
         print("5. Approve License")
         print("6. Generate Challan for Users")
-        print("7. Apply for Scrap")
+        print("7. Approve for Scrap")
         print("8. Logout")
         choice = input("\nEnter your choice: ")
         
@@ -197,7 +127,8 @@ def view_vehicles():
     dataObj.viewVehicles(regisNo)
 
 def view_licenses():
-    pass
+    userId = input("UserID: ")
+    dataObj.viewLicenses(userId)
 
 def view_challans():
     regiNo = input("Registration Number: ")
