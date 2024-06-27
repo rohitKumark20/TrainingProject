@@ -1,0 +1,76 @@
+---------Schema for the Admin Table----------
+create table admin(
+    id int not null auto_increment PRIMARY KEY,
+    adminName varchar(25) not null,
+    adminID varchar(25) not null unique,
+    password varchar(25) not null
+);
+
+---------Schema for the Users Table-----------
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('user', 'admin') NOT NULL
+);
+
+--------Schema for the Vehicle Registrations--------------
+CREATE TABLE vehicle_registrations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    purchase_date DATE NOT NULL,
+    engine_number VARCHAR(255) UNIQUE NOT NULL,
+    chassis_number VARCHAR(255) UNIQUE NOT NULL,
+    owner_name VARCHAR(255) NOT NULL,
+    registration_number VARCHAR(255) UNIQUE,
+    registration_date DATE,
+    expiry_date DATE,
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+alter table vehicle_registrations
+add aadhar_card varchar(12) not null;
+
+
+-----------Schema for the DrivingLicenses--------------------
+CREATE TABLE driving_licenses (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    date_of_birth DATE NOT NULL,
+    blood_group VARCHAR(10) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    license_number VARCHAR(255) UNIQUE,
+    issue_date DATE,
+    expiry_date DATE,
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+alter table driving_licenses
+add aadhar_card varchar(12) not null;
+
+alter table driving_licenses
+add is_approved boolean default false;
+
+-----------Schema for the Chalaans----------------
+CREATE TABLE chalaans (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    vehicle_number varchar(255) not null,
+    amount DECIMAL(10, 2) NOT NULL,
+    is_paid BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (vehicle_number) REFERENCES vehicle_registrations(registration_number)
+);
+
+---------Schema for the Scrapped Vehicles-----------------
+create table scrapped_vehicle(
+	purchase_date DATE NOT NULL,
+    engine_number VARCHAR(255) UNIQUE NOT NULL,
+    chassis_number VARCHAR(255) UNIQUE NOT NULL,
+    owner_name VARCHAR(255) NOT NULL,
+    registration_number VARCHAR(255) UNIQUE NOT NULL PRIMARY KEY,
+    is_scrapped BOOLEAN DEFAULT FALSE,
+    registration_date DATE NOT NULL,
+    expiry_date DATE NOT NULL,
+    user_id INT NOT NULL,
+	foreign key (user_id) references users(id)
+);
